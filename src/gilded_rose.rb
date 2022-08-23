@@ -15,7 +15,10 @@ class GildedRose
       if item.name != "Aged Brie"
         if item.name != "Backstage passes to a TAFKAL80ETC concert"
           if item.quality > 0
-            quality_sulfuras(item)            
+            quality_sulfuras(item)
+            if item.quality > 0 and item.name ==  "Conjured Mana Cake" 
+              quality_sulfuras(item)
+            end
           end
         else
           item.quality = item.quality - item.quality
@@ -28,14 +31,13 @@ class GildedRose
 
   def quality_sulfuras(item)
     if item.name != "Sulfuras, Hand of Ragnaros"
-      # item.sell_in = item.sell_in - 1
       item.quality = item.quality - 1
     end
   end
 
   def update_sell_in(item)
     if item.name != "Sulfuras, Hand of Ragnaros"
-      item.quality = item.quality - 1
+      item.sell_in = item.sell_in - 1
     end
   end
 
@@ -56,9 +58,11 @@ class GildedRose
       
       next if item.name == "Sulfuras, Hand of Ragnaros"
 
-      if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
+      if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" 
         update_item_quality(item, -1)
-      
+        if item.name == "Conjured Mana Cake"
+          update_item_quality(item, -1)
+        end
       else
         update_item_quality(item, 1)
         if item.name == "Backstage passes to a TAFKAL80ETC concert"
